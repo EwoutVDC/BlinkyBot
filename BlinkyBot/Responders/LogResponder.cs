@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MargieBot.Models;
 
-namespace SlackLogQuote.Responders
+namespace BlinkyBot.Responders
 {
     class LogResponder : MargieBot.Responders.IResponder
     {

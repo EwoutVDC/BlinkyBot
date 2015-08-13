@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using MargieBot;
 using MargieBot.Models;
 
-namespace SlackLogQuote
+namespace BlinkyBot
 {
     class Program
     {
