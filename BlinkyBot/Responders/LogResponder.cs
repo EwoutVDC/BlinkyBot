@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MargieBot.Models;
+using System.Diagnostics;
 
 namespace BlinkyBot.Responders
 {
@@ -16,7 +17,9 @@ namespace BlinkyBot.Responders
 
         public BotMessage GetResponse(ResponseContext context)
         {
-            System.Diagnostics.Debug.WriteLine(context.Message.RawData);
+            Debug.WriteLine("Raw json data: "+context.Message.RawData);
+
+            Debug.WriteLine("[" + context.Message.TimeStamp.ToString("dd/MM/yyyy hh:mm:ss") + "] <" + context.Message.User.FormattedUserID + "> " + context.Message.Text);
             
             return new BotMessage();
         }
