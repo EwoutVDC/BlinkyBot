@@ -10,6 +10,10 @@ namespace BlinkyBot.Responders
 {
     class LogResponder : MargieBot.Responders.IResponder
     {
+        //TODO: write lines to file/DB instead of debug
+        //TODO: handle message editing, url's, etc...
+
+
         public bool CanRespond(ResponseContext context)
         {
             return context.Message.Text.Length > 0;
@@ -19,9 +23,12 @@ namespace BlinkyBot.Responders
         {
             Debug.WriteLine("Raw json data: "+context.Message.RawData);
 
-            Debug.WriteLine("[" + context.Message.TimeStamp.ToString("dd/MM/yyyy hh:mm:ss") + "] <" + context.Message.User.FormattedUserID + "> " + context.Message.Text);
+            Debug.WriteLine(context.Message.ChatHub.Name //Name includes #
+                + " [" + context.Message.TimeStamp.ToString("dd/MM/yyyy hh:mm:ss") + "] "
+                + "<" + context.UserNameCache[context.Message.User.ID] + "> "
+                + context.Message.Text);
             
-            return new BotMessage();
+            return new BotMessage(); //empty response doesn't say anything
         }
     }
 }
