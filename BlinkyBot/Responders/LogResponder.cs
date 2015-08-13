@@ -28,7 +28,7 @@ namespace BlinkyBot.Responders
             Debug.WriteLine(context.Message.ChatHub.Name //Name includes #
                 + logmsg);
 
-            using (StreamWriter outfile = File.AppendText(context.Message.ChatHub.Name + "_" + context.Message.TimeStamp.ToString("dd-MM-yyyy") + ".txt"))
+            using (StreamWriter outfile = File.AppendText(context.Message.TimeStamp.ToString("yyyy-MM-dd") + "_" + context.Message.ChatHub.Name + ".txt"))
             {
                 outfile.WriteLine(logmsg);
             }
