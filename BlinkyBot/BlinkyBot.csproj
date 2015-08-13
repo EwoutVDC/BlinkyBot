@@ -7,8 +7,8 @@
     <ProjectGuid>{EC7E271A-39FD-40C3-9E64-A95D9BFCFB71}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SlackLogQuote</RootNamespace>
-    <AssemblyName>SlackLogQuote</AssemblyName>
+    <RootNamespace>BlinkyBot</RootNamespace>
+    <AssemblyName>BlinkyBot</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
