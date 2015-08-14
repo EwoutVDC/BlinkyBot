@@ -22,6 +22,7 @@ namespace BlinkyBot
 
             BlinkyBot blinky = new BlinkyBot();
             blinky.Responders.Add(new LogResponder());
+            blinky.Responders.Add(new QuoteResponder());
 
             try
             {
