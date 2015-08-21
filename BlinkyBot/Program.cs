@@ -9,20 +9,31 @@ using BlinkyBot.Responders;
 
 namespace BlinkyBot
 {
-    class Program
+    public static class Program
     {
+        public static void WaitAndExit(int code)
+        {
+            Console.WriteLine("Press ESC to stop");
+            do
+            {
+                System.Threading.Thread.Sleep(50);
+            } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+
+            Environment.Exit(code);
+        }
+
         static void Main(string[] args)
         {
             if (args.Length < 1)
             {
                 Console.WriteLine("Please pass the slack api key as argument");
-                Environment.Exit(1);
+                WaitAndExit(1);
             }
             string slackApiKey = args[0];
 
             BlinkyBot blinky = new BlinkyBot();
-            blinky.Responders.Add(new LogResponder());
-            blinky.Responders.Add(new QuoteResponder());
+            blinky.Responders.Add(new LogResponder(blinky.dbConnection));
+            blinky.Responders.Add(new QuoteResponder(blinky.dbConnection));
 
             try
             {
@@ -32,13 +43,13 @@ namespace BlinkyBot
             {
                 Console.WriteLine("Could not connect to slack api key '" + slackApiKey + "'");
                 Console.WriteLine(e.ToString());
-                Environment.Exit(1);
+                WaitAndExit(1);
             }
 
             if (!blinky.IsConnected)
             {
                 Console.WriteLine("Could not connect to slack api key '" + slackApiKey + "'");
-                Environment.Exit(1);
+                WaitAndExit(1);
             }
 
             System.Diagnostics.Debug.WriteLine("Connected hubs:");
@@ -49,6 +60,7 @@ namespace BlinkyBot
 
             //blinky.Say("#blinky-testing", "I'm alive!");
 
+            WaitAndExit(0);
             Console.WriteLine("Press ESC to stop");
             do
             {

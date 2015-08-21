@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using MargieBot.Models;
 
 
@@ -8,8 +9,6 @@ namespace BlinkyBot.Responders
 {
     class QuoteResponder : MargieBot.Responders.IResponder
     {
-        private List<string> quotes = new List<string>();
-
         public const string quoteStart = "!quote";
         public const string quoteAdd = "add";
         public const string quoteDel = "del";
@@ -17,6 +16,15 @@ namespace BlinkyBot.Responders
         public const string quoteSearch = "search"; //TODO
         public const string quoteRandom = "";
         public const string quoteHelp = "help"; //TODO
+
+        private List<string> quotes = new List<string>();
+        private SQLiteConnection dbConn;
+
+        public QuoteResponder(SQLiteConnection dbConn)
+        {
+            this.dbConn = dbConn;
+        }
+
 
         private int GetQuoteIndex(string request, BotMessage reply)
         {
