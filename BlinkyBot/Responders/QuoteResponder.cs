@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using MargieBot.Models;
 using BlinkyBot.Models;
+using Epoch.Extensions;
 
 namespace BlinkyBot.Responders
 {
@@ -180,7 +181,7 @@ namespace BlinkyBot.Responders
                       dbConn);
                 cmd.Parameters.AddWithValue("@channelname", quote.channel);
                 //No timezone adjustment for the database, this should be done in the frontend (for the local timezone since some weirdos don't live in CET)
-                cmd.Parameters.AddWithValue("@timestamp", (new DateTimeOffset(quote.timestamp)).ToUnixTimeSeconds());
+                cmd.Parameters.AddWithValue("@timestamp", quote.timestamp.ToUnix());
                 cmd.Parameters.AddWithValue("@username", quote.user);
                 cmd.Parameters.AddWithValue("@text", quote.text);
 
@@ -236,13 +237,7 @@ namespace BlinkyBot.Responders
                 SQLiteDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    Quote quote = new Quote();
-                    quote.id = (long)reader["id"];
-                    quote.channel = (string)reader["channel"];
-                    quote.setTimestamp((long)reader["timestamp"]);
-                    quote.user = (string)reader["user"];
-                    quote.text = (string)reader["text"];
-                    return quote;
+                    return quoteFromReader(reader);
                 }
             }
             catch (InvalidOperationException e)
@@ -265,13 +260,7 @@ namespace BlinkyBot.Responders
                 SQLiteDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    Quote quote = new Quote();
-                    quote.id = (long)reader["id"];
-                    quote.channel = (string)reader["channel"];
-                    quote.setTimestamp((long)reader["timestamp"]);
-                    quote.user = (string)reader["user"];
-                    quote.text = (string)reader["text"];
-                    return quote;
+                    return quoteFromReader(reader);
                 }
             }
             catch (InvalidOperationException e)
@@ -279,6 +268,17 @@ namespace BlinkyBot.Responders
                 Debug.WriteLine("InvalidOperationException caught: " + e.ToString());
             }
             return default(Quote);
+        }
+
+        private Quote quoteFromReader(SQLiteDataReader reader)
+        {
+            Quote quote = new Quote();
+            quote.id = (long)reader["id"];
+            quote.channel = (string)reader["channel"];
+            quote.setTimestamp((int)reader["timestamp"]);
+            quote.user = (string)reader["user"];
+            quote.text = (string)reader["text"];
+            return quote;
         }
 
 
