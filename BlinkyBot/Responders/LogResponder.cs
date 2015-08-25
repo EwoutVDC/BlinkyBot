@@ -73,7 +73,7 @@ namespace BlinkyBot.Responders
                       dbConn);
                 cmd.Parameters.AddWithValue("@channelname", context.Message.ChatHub.Name);
                 //No timezone adjustment for the database, this should be done in the frontend (for the local timezone since some weirdos don't live in CET)
-                cmd.Parameters.AddWithValue("@timestamp", (new DateTimeOffset(context.Message.TimeStamp)).ToUnixTimeMilliseconds());
+                cmd.Parameters.AddWithValue("@timestamp", (new DateTimeOffset(context.Message.TimeStamp)).ToUnixTimeSeconds());
                 cmd.Parameters.AddWithValue("@username", context.UserNameCache[context.Message.User.ID]);
                 cmd.Parameters.AddWithValue("@message", context.Message.Text);
 
