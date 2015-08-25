@@ -1,6 +1,7 @@
 ﻿using System;
 
 using MargieBot.Models;
+using Epoch.Extensions;
 
 namespace BlinkyBot.Models
 {
@@ -14,9 +15,9 @@ namespace BlinkyBot.Models
 
         public Quote() { id = -1; }
 
-        public void setTimestamp(long unixTimeStamp)
+        public void setTimestamp(int unixTimeStamp)
         {
-            timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimeStamp).DateTime;
+            timestamp = unixTimeStamp.FromUnix();
         }
 
         public string ToString(TimeZoneInfo timezone)
