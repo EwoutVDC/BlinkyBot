@@ -61,11 +61,6 @@ namespace BlinkyBot
             //blinky.Say("#blinky-testing", "I'm alive!");
 
             WaitAndExit(0);
-            Console.WriteLine("Press ESC to stop");
-            do
-            {
-                System.Threading.Thread.Sleep(50);
-            } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
             
             //blinky.Say("#blinky-testing", "Shutting down");
         }

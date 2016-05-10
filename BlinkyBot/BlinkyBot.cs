@@ -41,7 +41,9 @@ namespace BlinkyBot
 
         ~BlinkyBot()
         {
-            dbConnection.Close();
+            if (dbConnection != null)
+                dbConnection.Close();
+            //TODO: ObjectDisposed exception on shutdown
         }
 
         public void Say(string channel, string text)
