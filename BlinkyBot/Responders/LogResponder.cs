@@ -55,7 +55,14 @@ namespace BlinkyBot.Responders
             Debug.WriteLine(context.Message.ChatHub.Name //Name includes #
                 + logmsg);
 
-            using (StreamWriter outfile = File.AppendText(context.Message.TimeStamp.ToString("yyyy-MM-dd") + "_" + context.Message.ChatHub.Name + ".txt"))
+            string filename = context.Message.TimeStamp.ToString("yyyy-MM-dd") + "_" + context.Message.ChatHub.Name + ".txt";
+            string dir = context.Message.TimeStamp.ToString("yyyyMM");
+            string path = System.IO.Path.Combine(dir, filename);
+
+            if (!System.IO.Directory.Exists(dir))
+                System.IO.Directory.CreateDirectory(dir);
+
+            using (StreamWriter outfile = File.AppendText(path))
             {
                 outfile.WriteLine(logmsg);
             }
